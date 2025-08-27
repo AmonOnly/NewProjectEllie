@@ -31,4 +31,3 @@ def add_entry(command, tool, args, result, feedback=None):
 def get_last_commands(n=5):
     memory = load_memory()
     return memory[-n:]
-a
