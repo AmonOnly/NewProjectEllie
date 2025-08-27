@@ -1,10 +1,12 @@
 # brain.py
+import json
+import re
 from llm import ask_llm, ask_llm_chat
 from tts import speak
 from tools import apps, control, screen
 from memory import add_entry, get_last_commands, load_memory
-import json
-import re
+
+ASSISTANT_NAME = "ELLIE"
 
 TOOLS = {
     "apps.open_app": apps.open_app,
@@ -14,6 +16,7 @@ TOOLS = {
 }
 
 def summarize_old_memory(max_lines=10):
+    """Gera um resumo das memórias antigas."""
     memory = load_memory()
     if not memory:
         return "Nenhuma memória antiga."
@@ -27,21 +30,36 @@ def summarize_old_memory(max_lines=10):
     return "\n".join(summary_lines)
 
 def answer_question(text):
+    """Responde perguntas gerais usando LLM e contexto de memória."""
     try:
         summary = summarize_old_memory()
-        context = f"Resumo das interações passadas:\n{summary}"
-        answer = ask_llm_chat(text, context=context)
+        recent_history = get_last_commands(50)
+        history_text = "\n".join(
+            [f"{h['command']} -> {h['tool']} ({h['feedback']})" for h in recent_history]
+        )
+        prompt = f"""
+Resumo antigo:
+{summary}
+
+Histórico recente:
+{history_text}
+
+Usuário disse: '{text}'
+Responda de forma completa e clara.
+"""
+        answer = ask_llm_chat(prompt)
         speak(answer)
-        print("[CHAT]", answer)
+        print(f"[{ASSISTANT_NAME}]: {answer}")
     except Exception as e:
         print("[ERROR CHAT]", e)
         speak("Desculpe, não consegui responder a isso.")
 
 def route_command(text):
+    """Roteia comandos para ferramentas ou LLM."""
     try:
         lower_text = text.lower().strip()
 
-        # Comandos explícitos de abrir apps
+        # Abrir aplicativos
         if lower_text.startswith(("abrir ", "iniciar ", "executar ")):
             app_name = lower_text.replace("abrir ", "").replace("iniciar ", "").replace("executar ", "").strip()
             tool_name = "apps.open_app"
@@ -49,11 +67,11 @@ def route_command(text):
             if tool_name in TOOLS:
                 result = TOOLS[tool_name](**args)
                 speak(result)
-                print("[BRAIN]", result)
+                print(f"[{ASSISTANT_NAME}]", result)
                 add_entry(command=text, tool=tool_name, args=args, result=result, feedback=None)
                 return
 
-        # Comandos de digitar texto
+        # Digitar texto
         if lower_text.startswith(("digitar ", "escrever ")):
             msg = lower_text.replace("digitar ", "").replace("escrever ", "").strip()
             tool_name = "control.type_text"
@@ -61,11 +79,11 @@ def route_command(text):
             if tool_name in TOOLS:
                 result = TOOLS[tool_name](**args)
                 speak("Texto digitado.")
-                print("[BRAIN]", result)
+                print(f"[{ASSISTANT_NAME}]", result)
                 add_entry(command=text, tool=tool_name, args=args, result=result, feedback=None)
                 return
 
-        # Comandos de clicar texto
+        # Clicar texto
         if lower_text.startswith(("clicar em ", "click ")):
             target = lower_text.replace("clicar em ", "").replace("click ", "").strip()
             tool_name = "control.click_text"
@@ -73,11 +91,11 @@ def route_command(text):
             if tool_name in TOOLS:
                 result = TOOLS[tool_name](**args)
                 speak(f"Clique realizado em {target}.")
-                print("[BRAIN]", result)
+                print(f"[{ASSISTANT_NAME}]", result)
                 add_entry(command=text, tool=tool_name, args=args, result=result, feedback=None)
                 return
 
-        # Comandos de ler a tela
+        # Ler tela
         if lower_text in ("ler tela", "ler o que está na tela"):
             tool_name = "screen.read_screen"
             args = {}
@@ -85,11 +103,11 @@ def route_command(text):
                 result = TOOLS[tool_name](**args)
                 speak("Conteúdo da tela:")
                 speak(result)
-                print("[BRAIN]", result)
+                print(f"[{ASSISTANT_NAME}]", result)
                 add_entry(command=text, tool=tool_name, args=args, result=result, feedback=None)
                 return
 
-        # Se não for comando explícito, tenta identificar via LLM
+        # Se não for comando explícito, LLM tenta interpretar
         recent_history = get_last_commands(50)
         history_text = "\n".join(
             [f"{h['command']} -> {h['tool']} ({h['feedback']})" for h in recent_history]
@@ -135,7 +153,7 @@ Não escreva nada fora do JSON.
         if tool_name in TOOLS:
             result = TOOLS[tool_name](**args)
             speak(f"Executado: {tool_name}")
-            print("[BRAIN]", result)
+            print(f"[{ASSISTANT_NAME}]", result)
 
             feedback = input("Foi útil? (sim/não): ").strip().lower()
             if feedback not in ["sim", "não"]:
