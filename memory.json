@@ -1,0 +1,36 @@
+[
+  {
+    "command": "abrir firefox",
+    "tool": "apps.open_app",
+    "args": {
+      "app_name": "firefox"
+    },
+    "result": "firefox aberto com sucesso!",
+    "feedback": null
+  },
+  {
+    "command": "abrir terminal",
+    "tool": "apps.open_app",
+    "args": {
+      "app_name": "terminal"
+    },
+    "result": "Erro ao abrir terminal: [Errno 2] No such file or directory: 'terminal'",
+    "feedback": null
+  },
+  {
+    "command": "abrir Terminal",
+    "tool": "apps.open_app",
+    "args": {
+      "app_name": "terminal"
+    },
+    "result": "Erro ao abrir terminal: [Errno 2] No such file or directory: 'terminal'",
+    "feedback": null
+  },
+  {
+    "command": "ler tela",
+    "tool": "screen.read_screen",
+    "args": {},
+    "result": "brain.py - PessoalProject - Visual Studio Code DER)\n\n[CRE RE AR\n\n| RR\nAo NA o N io\ne\nDR\nDAL\nRAT\ne\nEE\nEMA\nEE\nE\n\n \n\nELE\n\nCOR ZE e)\nCA\nEE\n\nEA\n\nsnrnygEO\n\n(e\n\nE\nPEITOS\nO e mine o 0040 wo\n\nO DO Je\n\n \n\n \n\n \n\n \n\n    \n\n \n\n \n\nO? DE \u00e9 ttspy E LER Ro = TRT AA EEE DE EAR O\nE?\n\n\u00c9 E E\nER SO ERR iso cio F\nFER\n\n132 RT RR A RD)\n\nPES args = cmd.get(\"args\", ())\n\n134\n\nPES ERR EO\n\n136 Decor oo RT Ro SS Ec Lee ED]\n\nPEA speak(f\"Executado: (tool name)\u201d)\n\n138 PETS ICS ORAS)\n\n139,\n\nEE E lo SRS UA LR SAR CEO) EO Pe TO PROA)\n\nES ERSRCE eo GTA REU PRE NS\n\nER EEE\n\n143, ERES ui SUR [Dao TOR ge af ARE TIGRE ro fr 0] h\nEA DE\n\nRECTA answer question(text)\n\nE\n\n147 Tea SR\n\nEE PECAS RR)\n\nE ED GUIDE Te Era\n\n[Ao ES CR GA cf eo ER TO VR E PECA DR\nARCA Te TANGO: ERC LES\n\nEL E EUR E E AS)\n\nUama kv cache unified: size = 256.00 MiB ( 512 cells, 32 layers, 1/1 segs), K (f16): 128.00 MiB, V (f16): 128.00 MiB k\n\n \n\nARE ASR CAS\n\nER ER SED\n\nRELER SER AL RAE)\n\nREM SRD ar E ERR O DES PR DE PR e)\n\n \n\n     \n\ngraph reserve: reserving a graph for ubatch with n tokens = 512, n segs = 1, n outputs = 512\nEDSON ERR e RR e ED ERR RAR PR EO\ngraph reserve: reserving a graph for ubatch with n tokens = 512, n segs = 1, n outputs = 512\n\nE da [o UR Ta 97.51 MiB\n\nlama context: graph nodes = 1126\n\nDRE Re RL E\n\n[o TRES = E DRE RR A O SOS UR 0280 NO CEI DS US RR 2 RR To = =\n\nEITA EAR CTA CAT NR RR IEA ETR DT PETER UR SE Do EE ER PRA AE Ta O RR EE DER NS OT ORE TE UERRA NE o PRA RE ODE SE >\n[ESPECTRO Mofo o DERA CT SA GER O cce t CART o PRNREE CPAARE DR SR SETA IRS LA ENE To PANA RE Tae SET RE TA o DES Ro ARRAIS HT RR Eta RES EE DER\nPANE DES ROS EAR DR SC UR ENIO DERRE DPRRA E DO cIo TES EA DERRADEIRA O TER ERR PE RAN COR\nErgo RARA SEA SE SER CT ESTAS E po o e RENA o EE a Ro ARENA\n\nUsing fallback chat format: Ulama-2\n\n[OT SEREIA SET ER EE DRE ET E ONO q 1a NTE NR EVER EE FAR E\n\nDigite um comando (ou 'sair' para encerrar): ler tela]\n\n \n\n \n\n     \n\n          \n\nORE TR TO ERC\n\nDR MERE ETRO\n\f",
+    "feedback": null
+  }
+]

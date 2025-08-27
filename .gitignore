@@ -1,0 +1,28 @@
+# Ambiente virtual
+.venv/
+venv/
+env/
+
+# Python cache/compilado
+__pycache__/
+*.pyc
+*.pyo
+
+# Logs e temporários
+*.log
+*.tmp
+
+# Modelos ou arquivos grandes
+*.gguf
+*.zip
+*.tar.gz
+*.bin
+*.pt
+*.mp4
+
+# Configurações locais
+.env
+
+# Sistema
+.DS_Store
+Thumbs.db
